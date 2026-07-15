@@ -237,7 +237,7 @@
     <div id="productFormModal" class="fixed inset-0 bg-black/60 z-[80] hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeModal('productFormModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fas fa-times text-xl"></i></button>
-            <h3 id="productFormTitle" class="text-xl font-bold mb-4">เพิ่มสินค้า</h3>
+            <h3 id="productFormTitle" class="text-xl font-bold mb-4">เพิ่ม/แก้ไขสินค้า</h3>
             <input type="hidden" id="adminProdId">
             
             <div class="space-y-3">
@@ -279,7 +279,7 @@
 
     <!-- Admin Button Link -->
     <footer class="mt-12 py-6 text-center text-slate-400 text-sm border-t">
-        <p>&copy; 2026 SNI sindy. All rights reserved. <span onclick="openAdmin()" class="cursor-pointer opacity-20 hover:opacity-100 transition"><i class="fas fa-cog"></i></span></p>
+        <p>&copy; 2026 SNI sindy แอปพรีเมียม. All rights reserved. <span onclick="openAdmin()" class="cursor-pointer opacity-20 hover:opacity-100 transition"><i class="fas fa-cog"></i></span></p>
     </footer>
 
     <!-- Script Logic -->
@@ -361,7 +361,6 @@
             productsData.forEach(p => {
                 const isOut = p.stockCount === 0;
                 
-                // รูปภาพปรับสัดส่วน 1:1 ขนาด 500x500 ด้วยคลาส aspect-square
                 const imgHtml = p.imageUrl ? `<img src="${p.imageUrl}" class="w-full aspect-square object-cover rounded-xl mb-4 shadow-sm" alt="Product">` : ``;
                 
                 const stockBadge = isOut 
@@ -397,7 +396,6 @@
             });
         }
 
-        // ฟังก์ชันใหม่สำหรับการแสดงรายละเอียดสินค้า
         function showProductDetails(id) {
             const product = productsData.find(p => p.id === id);
             if(product) {
@@ -480,7 +478,10 @@
         
         dropZone.addEventListener('click', () => slipInput.click());
         dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
-        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'); });
+        
+        // แก้ไขบรรทัดนี้แล้ว (ลบวงเล็บปีกกาที่เกินมาออก)
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+        
         dropZone.addEventListener('drop', (e) => {
             e.preventDefault(); dropZone.classList.remove('drag-over');
             if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
